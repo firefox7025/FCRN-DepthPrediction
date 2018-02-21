@@ -34,11 +34,11 @@ def predict(model_data_path, image_path):
         print('Loading the model')
 
         # Use to load from ckpt file
-        saver = tf.train.Saver()
-        saver.restore(sess, model_data_path)
+        #saver = tf.train.Saver()
+        #saver.restore(sess, model_data_path)
 
         # Use to load from npy file
-        #net.load(model_data_path, sess) 
+        net.load(model_data_path, sess) 
 
         # Evalute the network for the given image
         pred = sess.run(net.get_output(), feed_dict={input_node: img})
@@ -53,11 +53,12 @@ def predict(model_data_path, image_path):
         
                 
 def main():
-    # Parse arguments
     parser = argparse.ArgumentParser()
-    model_path = "models/NYU_FCRN.ckpt"
     parser.add_argument('image_paths', help='Directory of images to predict')
     args = parser.parse_args()
+    # Parse arguments
+    model_path = "models/NYU_ResNet-UpProj.npy"
+
     # Predict the image
     pred = predict(model_path, args.image_paths)
     
@@ -65,8 +66,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-        
 
 
 
